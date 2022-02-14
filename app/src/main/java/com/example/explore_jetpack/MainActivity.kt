@@ -7,11 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,26 +37,41 @@ fun Myapp(content: @Composable () -> Unit){
             color = MaterialTheme.colors.background
         ) {
             content()
+            MyScreenContent()
         }
     }
 }
 
 @Composable
-fun MyScreenContent(){
+fun MyScreenContent(names: List<String> = listOf("Android","is","Here")){
     Column {
-        Greeting(name = "Android")
-        Divider()
-        Greeting(name = "Here")
+        for(name in names){
+            Greeting(name = name)
+            Divider()
+        }
+        Counter()
+        Counter()
+    }
+}
+
+@Composable
+fun Counter(){
+    var counter by remember {
+        mutableStateOf(0)
+    }
+
+    Button(onClick = { counter++ }) {
+        Text(text = "clicked $counter times")
     }
 }
 @Composable
-fun Greeting(name: String, ) {
+fun Greeting(name: String) {
 
-        Text(text = "Hello $name!"
+        Text(text = "Hello $name!",
 //            ,
-//            modifier = modifier
+            modifier = Modifier.padding(16.dp)
 //                .background(color = Color.Magenta)
-//                .padding(16.dp)
+
         )
     }
 
